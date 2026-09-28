@@ -1,157 +1,229 @@
-# Django, InfluxDB & Grafana Data Platform
+# Django, InfluxDB & Grafana Data Dashboard
 
-This repository presents selected work from a software engineering project involving web development, time-series data storage and data visualisation.
+A full-stack data management and visualisation platform built with Django, InfluxDB, Grafana and JavaScript.
 
-The project combined Django, InfluxDB and Grafana to create a system where users could work with stored data, generate visualisations and interact with dashboards through a web application.
+This project was developed as a university software engineering team project. The application allows users to connect to InfluxDB, build queries through a web interface, retrieve time-series data and visualise the results through integrated Grafana dashboards.
+
+This repository is a portfolio version of the original project and highlights the technical work and features I contributed to.
 
 ---
 
 ## Project Overview
 
-The system was designed as a web-based data platform combining:
+Working directly with InfluxDB queries can be difficult for users who are not familiar with Flux syntax.
 
-- Django for backend development
-- InfluxDB for time-series data storage
-- Grafana for dashboards and visualisation
-- JavaScript for frontend interaction
-- REST-style communication between system components
+The goal of this project was to provide a web interface that allows users to construct queries through selections and filters rather than writing the complete query manually.
 
-The project required different technologies to work together as one application rather than as separate standalone tools.
-
----
-
-## My Contribution
-
-My main contributions included:
-
-- Backend development using Python and Django
-- Working with InfluxDB for time-series data storage
-- Supporting data retrieval and processing
-- Integrating Grafana dashboards into the application
-- Working with different chart and visualisation types
-- Supporting CSV data export
-- Debugging application and login-related issues
-- Improving integration between backend and frontend components
-- Updating documentation and testing project functionality
-- Collaborating with team members using Git and GitHub
-
----
-
-## Technologies
-
-- Python
-- Django
-- InfluxDB
-- Grafana
-- JavaScript
-- HTML / CSS
-- REST APIs
-- Git
-- GitHub
-
----
-
-## System Architecture
-
-The project combined several components:
+The application connects several components:
 
 ```text
 User
   │
   ▼
-Django Web Application
+Web Interface
   │
-  ├── Application Logic
-  │
-  ├── Data Processing
-  │
-  └── API / Backend Services
+  ▼
+Django Backend
   │
   ▼
 InfluxDB
+  │
+  ├── Query Results
+  │
+  └── Time-Series Data
   │
   ▼
 Grafana
   │
   ▼
-Dashboards and Visualisations
+Charts and Dashboards
 ```
-
-Django handled the main application logic, while InfluxDB was used for time-series data storage and Grafana provided interactive visualisations.
 
 ---
 
-## Key Features
+## Main Features
 
-### Data Storage
+### Visual Query Builder
 
-The system used InfluxDB to store and retrieve time-series data.
+Users can build an InfluxDB query through the interface by selecting:
 
-This allowed the application to work efficiently with data containing timestamps and changing values over time.
+- Bucket
+- Measurement
+- Fields
+- Filters
+- Time range
 
-### Grafana Dashboards
+The application then automatically generates the corresponding Flux query.
 
-Grafana was used to create dashboards and visualise stored data.
+![Query Builder](screenshots/snapshot4.png)
 
-Different visualisation types could be used depending on the dataset and user requirements.
+---
 
-### Web Application
+### Automatic Flux Query Generation
 
-Django provided the backend for the web application and connected the different parts of the system.
+Instead of requiring users to manually write Flux syntax, the application generates the query based on the options selected in the interface.
 
-The project involved working with backend logic, user interaction and integration between multiple services.
+The generated query can also be viewed before execution, making it easier to understand and debug the query.
 
-### Data Export
+---
 
-The application supported exporting selected data to CSV files for further analysis or external use.
+### Dynamic Field and Filter Selection
 
-### Dashboard Integration
+The interface dynamically retrieves available measurements, fields and values from InfluxDB.
 
-Grafana visualisations were integrated into the web application so users could access data and dashboards through a single interface.
+Users can add multiple fields and filter conditions to create more complex queries.
+
+![Dashboard Query Interface](screenshots/snapshot2.png)
+
+---
+
+### Query Result Display
+
+Query results are returned to the web application and displayed in a structured table.
+
+This allows users to inspect the data directly before creating visualisations or exporting the result.
+
+![Query Results and Grafana Visualisation](screenshots/snapshot3.png)
+
+---
+
+### Grafana Integration
+
+Grafana is integrated into the platform to provide data visualisation.
+
+Query results can be represented using graphical dashboards while still allowing users to view the underlying data in the application.
+
+The project included support for displaying Grafana visualisations directly within the web application.
+
+---
+
+### CSV Export
+
+Query result tables can be exported to `.csv` files directly from the user interface.
+
+This allows users to use the retrieved data in other tools for further analysis.
+
+---
+
+## Technologies
+
+### Backend
+
+- Python
+- Django
+- Django REST framework
+- InfluxDB
+- REST APIs
+
+### Frontend
+
+- JavaScript
+- React
+- HTML
+- CSS
+
+### Data & Visualisation
+
+- InfluxDB
+- Flux
+- Grafana
+- CSV
+
+### Development
+
+- Git
+- GitHub
+- Visual Studio Code
+- Python virtual environments
+- npm
+
+---
+
+## My Contribution
+
+My work on the project included:
+
+- Backend development and project integration
+- Working with the InfluxDB API
+- Retrieving buckets, measurements, fields and time-series data
+- Supporting automatic generation of Flux queries
+- Connecting frontend query selections with backend functionality
+- Supporting query result processing and display
+- Working on Grafana integration
+- Supporting CSV export functionality
+- Debugging issues across frontend, backend and database components
+- Testing features and integrating code produced by different team members
+- Maintaining project documentation and participating in sprint development
+
+---
+
+## Development Environment
+
+The project required several services to work together during development, including the Django backend, frontend development server and InfluxDB.
+
+![Development Environment](screenshots/snapshot1.png)
+
+This provided practical experience working with a multi-component application rather than a single standalone program.
+
+---
+
+## How the Query Workflow Works
+
+A typical query follows this process:
+
+```text
+1. User provides InfluxDB connection information
+        │
+        ▼
+2. Application retrieves available data structure
+        │
+        ▼
+3. User selects bucket and measurement
+        │
+        ▼
+4. User selects fields and filters
+        │
+        ▼
+5. Application generates a Flux query
+        │
+        ▼
+6. Django sends the query to InfluxDB
+        │
+        ▼
+7. Query results are returned
+        │
+        ├── Display as a table
+        ├── Export as CSV
+        └── Visualise using Grafana
+```
 
 ---
 
 ## Screenshots
 
-### Dashboard
+### Development Environment
 
-![Grafana Dashboard](screenshots/grafana_dashboard.png)
+The project running locally with the development services and source code.
 
-### Web Application
+![Development Environment](screenshots/snapshot1.png)
 
-![Web Application](screenshots/web_application.png)
+### Data Dashboard
 
----
+The main dashboard used to select InfluxDB data and build a query.
 
-## Challenges
+![Data Dashboard](screenshots/snapshot2.png)
 
-One of the main challenges was integrating several independent technologies into a single working system.
+### Query Results and Visualisation
 
-Issues could occur at different layers, including:
+Query results displayed as a table together with an integrated Grafana visualisation.
 
-- Django backend logic
-- Database queries
-- Grafana configuration
-- Frontend integration
-- Authentication and login behaviour
+![Results](screenshots/snapshot3.png)
 
-Debugging therefore required understanding how information moved through the entire application rather than looking at only one component.
+### Query Builder and Generated Flux
 
----
+Dynamic field selection, filters and automatically generated Flux query.
 
-## What I Learned
-
-This project gave me practical experience in:
-
-- Building backend applications using Django
-- Working with time-series databases
-- Integrating multiple software services
-- Creating and working with dashboards
-- Debugging full-stack application issues
-- Working with APIs and data flows
-- Collaborating on a larger software project using Git and GitHub
-
-It also improved my understanding of how backend applications, databases and visualisation platforms work together in a real software system.
+![Flux Query Builder](screenshots/snapshot4.png)
 
 ---
 
@@ -160,15 +232,26 @@ It also improved my understanding of how backend applications, databases and vis
 ```text
 django-influxdb-grafana-project/
 │
+├── backend/
+│   ├── backend/
+│   ├── influxdb/
+│   ├── users/
+│   ├── manage.py
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── sample_data/
+│
 ├── screenshots/
-│   ├── grafana_dashboard.png
-│   └── web_application.png
-│
-├── src/
-│   └── Selected application source code
-│
-├── docs/
-│   └── Project documentation and architecture
+│   ├── snapshot1.png
+│   ├── snapshot2.png
+│   ├── snapshot3.png
+│   └── snapshot4.png
 │
 ├── .gitignore
 └── README.md
@@ -176,8 +259,27 @@ django-influxdb-grafana-project/
 
 ---
 
+## What I Learned
+
+This project gave me practical experience in building and integrating a full-stack data application.
+
+In particular, I gained experience with:
+
+- Building backend functionality with Django
+- Working with REST APIs
+- Querying a time-series database
+- Connecting frontend controls with backend services
+- Automatically generating database queries
+- Integrating external visualisation tools
+- Debugging issues across multiple application layers
+- Working collaboratively using Git and GitHub
+
+The project also helped me understand how frontend applications, backend services, databases and visualisation platforms work together as one system.
+
+---
+
 ## Project Note
 
-This repository is a portfolio version of a university team project.
+This was originally developed as a university team project.
 
-It contains selected work related to my own contribution. Private configuration files, credentials and material that I am not permitted to share publicly are not included.
+This repository is presented as a portfolio version of the project and includes work relevant to my own contribution. Development credentials, private configuration, virtual environments and other sensitive or unnecessary files are not included.
